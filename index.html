@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Mechanic - Join the Waitlist</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+      background:#171717;color:#fff;line-height:1.6;min-height:100vh
+    }
+    .container{max-width:1200px;margin:0 auto;padding:40px 20px;min-height:100vh;display:flex;align-items:center}
+    .waitlist-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
+
+    /* Responsive logo / hero image */
+    .product-image{
+      width:100%;
+      max-width:clamp(220px, 60vw, 200px);
+      height:auto;
+      display:block;
+      margin:0 auto 30px;
+      border-radius:12px;
+    }
+
+    .left-content h1{font-size:48px;font-weight:800;margin-bottom:20px;line-height:1.2}
+    .left-content .subtitle{font-size:20px;color:#9E9E9E;margin-bottom:30px;line-height:1.5}
+    .features{display:flex;flex-direction:column;gap:16px;margin-top:30px}
+    .feature-item{display:flex;align-items:center;gap:12px;color:#9E9E9E;font-size:16px}
+    .feature-item::before{content:"✓";color:#F96D37;font-weight:700;font-size:20px}
+
+    /* --- New Conversion CTA --- */
+    .features-cta{
+      margin-top:22px;
+      padding:16px 18px;
+      background:linear-gradient(135deg,#F96D37,#60B0AA);
+      border-radius:12px;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+      outline: none;
+    }
+    .features-cta:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+    .features-cta:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.35), 0 10px 30px rgba(0,0,0,.25)}
+    .features-cta::before{
+      content:'';
+      position:absolute;top:0;left:-120%;
+      width:120%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+      animation:ctaShimmer 4s infinite;
+      pointer-events:none;
+    }
+    @keyframes ctaShimmer{0%{left:-120%}100%{left:120%}}
+
+    .cta-topline{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .cta-title{font-size:18px;font-weight:800;letter-spacing:.2px}
+    .cta-arrow{
+      margin-left:auto;
+      width:26px;height:26px;min-width:26px;
+      border-radius:50%;
+      background:rgba(0,0,0,.22);
+      display:flex;align-items:center;justify-content:center;
+      transform:translateX(0);transition:transform .2s ease, background .2s ease
+    }
+    .features-cta:hover .cta-arrow{transform:translateX(2px);background:rgba(0,0,0,.28)}
+    .cta-arrow-icon{
+      display:block;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:8px solid #fff
+    }
+    .cta-subtext{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.95);line-height:1.4}
+    .cta-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .cta-pill{
+      background:rgba(0,0,0,.22);
+      color:#fff;
+      padding:6px 10px;border-radius:999px;
+      font-size:12px;font-weight:700;
+      border:1px solid rgba(255,255,255,.12)
+    }
+
+    .right-content{background:#1f1f1f;padding:50px;border-radius:16px;border:1px solid #2a2a2a}
+    .form-header{margin-bottom:30px}
+    .form-header h2{font-size:28px;margin-bottom:12px}
+    .form-header p{color:#9E9E9E;font-size:16px}
+    .founding-badge{display:inline-block;background:#F96D37;color:#fff;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600;margin-bottom:20px}
+    .waitlist-form{display:flex;flex-direction:column;gap:16px}
+    .form-group{display:flex;flex-direction:column;gap:8px}
+    .form-group label{font-size:14px;font-weight:600;color:#fff}
+    .form-group input{background:#2a2a2a;border:1px solid #3a3a3a;color:#fff;padding:16px;border-radius:8px;font-size:16px;transition:border-color .3s}
+    .form-group input:focus{outline:none;border-color:#F96D37}
+    .form-group input::placeholder{color:#84888B}
+
+    .submit-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      background:#F96D37;color:#fff;border:none;padding:18px;border-radius:8px;
+      font-size:18px;font-weight:700;cursor:pointer;transition:all .3s;margin-top:8px
+    }
+    .submit-btn:hover{background:#e85c26;transform:translateY(-2px);box-shadow:0 8px 20px rgba(249,109,55,.3)}
+    .submit-btn:active{transform:translateY(0)}
+    .submit-btn[disabled]{opacity:.65;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-spinner{
+      width:18px;height:18px;border:3px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;
+      display:none;animation:spin .9s linear infinite
+    }
+    .submit-btn.loading .btn-spinner{display:inline-block}
+    .submit-btn.loading .btn-label::after{content:"Submitting…"}
+    .submit-btn .btn-label::after{content:"Join Waitlist →"}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .trust-line{text-align:center;color:#9E9E9E;font-size:14px;margin-top:20px}
+    .trust-line strong{color:#fff}
+    .price-info{background:#2a2a2a;padding:20px;border-radius:8px;margin-top:20px;text-align:center}
+    .price-info .old-price{text-decoration:line-through;color:#9E9E9E;font-size:16px}
+    .price-info .new-price{color:#F96D37;font-size:32px;font-weight:800;margin:8px 0}
+    .price-info .savings{color:#60B0AA;font-size:14px;font-weight:600}
+    .alpha-access-btn{background:#60B0AA;color:#fff;border:none;padding:14px 24px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;margin:16px 0;width:100%}
+    .alpha-access-btn:hover{background:#4a9b96;transform:translateY(-2px);box-shadow:0 8px 20px rgba(96,176,170,.3)}
+    .alpha-access-btn:active{transform:translateY(0)}
+
+    @media (max-width:968px){
+      .waitlist-wrapper{grid-template-columns:1fr;gap:40px}
+      /* Logo stays fluid on tablets */
+      .product-image{max-width:clamp(220px, 72vw, 200px)}
+      .left-content h1{font-size:36px}
+      .right-content{padding:35px}
+      .container{padding:30px 20px}
+    }
+    @media (max-width:640px){
+      .product-image{max-width:40%}
+      .left-content h1{font-size:32px}
+      .right-content{padding:25px}
+      .form-header h2{font-size:24px}
+    }
+
+    .success-message{
+      display:none;background:#60B0AA;color:#fff;padding:16px;border-radius:8px;text-align:center;font-weight:600;margin-top:16px
+    }
+    .success-message.show{display:block}
+    .error-message{
+      display:none;background:#7a1f1f;color:#fff;padding:12px;border-radius:8px;text-align:center;font-weight:600;margin-top:12px
+    }
+    .error-message.show{display:block}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="waitlist-wrapper">
+      <div class="left-content">
+        <img src="./modern-mechanic.png" alt="Modern Mechanic OBD Scanner Kit" class="product-image" id="productImage">
+        <h1>Turn car problems into step-by-step solutions.</h1>
+  
+        <div class="features">
+          <div class="feature-item">100% free app — no subscriptions, no paywalls, ever</div>
+          <div class="feature-item">Works with ANY OBD reader you already own</div>
+          <div class="feature-item">Upload scans, photos, videos — get AI diagnosis instantly</div>
+          <div class="feature-item">Real mechanic support for free for everyone</div>
+          <div class="feature-item">Step-by-step repair guides with video tutorials</div>
+          <div class="feature-item">Instant cost estimates for parts and labor</div>
+          <div class="feature-item">Aftermarket modifications - yes even engine swap help (customized to your exact build)</div>
+          <div class="feature-item">Get local support and help</div>
+          <div class="feature-item">Supports OBD0, OBD1, and OBD2 vehicles</div>
+
+          <!-- High-conversion CTA -->
+          <div
+            class="features-cta"
+            id="ctaJoin"
+            role="button"
+            tabindex="0"
+            aria-label="Join the waitlist or become an alpha tester"
+            data-cta="left-gradient-cta"
+          >
+            <div class="cta-topline">
+              <span class="cta-title">Early Access + Founder Perks</span>
+              <span class="cta-arrow" aria-hidden="true"><i class="cta-arrow-icon"></i></span>
+            </div>
+            <div class="cta-subtext">
+              Join the free waitlist or help us test the alpha. Limited kits available.
+            </div>
+            <div class="cta-pills" aria-hidden="true">
+              <span class="cta-pill">Free forever</span>
+              <span class="cta-pill">No credit card</span>
+              <span class="cta-pill">Same-day shipping</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-content">
+        <span class="founding-badge">🎁 FOUNDING MEMBER KIT</span>
+
+        <div class="form-header">
+          <h2>Join the Waitlist for beta testing</h2>
+          <p>App ready for testing TODAY. Kits ship same day you order. The waitlist and app is Free</p>
+        </div>
+
+        <form id="leadForm" class="waitlist-form" novalidate>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="your@email.com" required>
+          </div>
+
+          <button id="submitBtn" type="submit" class="submit-btn" aria-live="polite" aria-busy="false">
+            <span class="btn-spinner" aria-hidden="true"></span>
+            <span class="btn-label"></span>
+          </button>
+
+          <div class="success-message" id="successMessage">
+            🎉 You're on the list! Check your email for next steps.
+          </div>
+          <div class="error-message" id="errorMessage">
+            Sorry, something went wrong. Please try again.
+          </div>
+        </form>
+
+        <div class="price-info">
+          <div class="old-price">App Store/Play Store: Coming soon</div>
+          <div class="new-price">$99</div>
+
+          <button class="alpha-access-btn">Get Instant Alpha Access →</button>
+
+          <div class="savings">Premium OBD kit + case + founding member perks • only 500 produced ever</div>
+        </div>
+
+        <div class="trust-line">
+          <strong>App launches free for everyone.</strong> This kit gets you branded hardware + first access. (and helps us proivde a kickass free app to people forever)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwnjfZVxXHrqCK4GFq-tUI2dModq_4FmTfL00ba3C5kUvFZ3zGtbn1IFHofTwHlY-sz/exec';
+
+    const form = document.getElementById('leadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successEl = document.getElementById('successMessage');
+    const errorEl = document.getElementById('errorMessage');
+
+    // Smooth-scroll CTA -> form (click or keyboard)
+    const cta = document.getElementById('ctaJoin');
+    function focusForm(){
+      document.getElementById('name').focus({preventScroll:true});
+    }
+    function scrollToForm(){
+      form.scrollIntoView({behavior:'smooth', block:'start'});
+      try { window.mmTrack && window.mmTrack('cta_click','left-gradient-cta'); } catch(e){}
+      setTimeout(focusForm, 450);
+    }
+    cta.addEventListener('click', scrollToForm);
+    cta.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        scrollToForm();
+      }
+    });
+
+    function setLoading(isLoading){
+      if(isLoading){
+        submitBtn.classList.add('loading');
+        submitBtn.setAttribute('aria-busy','true');
+        submitBtn.disabled = true;
+      } else {
+        submitBtn.classList.remove('loading');
+        submitBtn.setAttribute('aria-busy','false');
+        submitBtn.disabled = false;
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      successEl.classList.remove('show');
+      errorEl.classList.remove('show');
+
+      // Basic client-side validation
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      if(!name || !email){
+        errorEl.textContent = 'Please enter your name and a valid email.';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      // Build URL-encoded body (avoids CORS preflight)
+      const body = new URLSearchParams({ name, email });
+
+      setLoading(true);
+      try {
+        await fetch(ENDPOINT, { method: 'POST', body });
+
+        // Show success and reset form
+        successEl.classList.add('show');
+        form.reset();
+
+        // Re-enable after a beat
+        setTimeout(() => { setLoading(false); }, 800);
+        // Hide success after 5s
+        setTimeout(() => successEl.classList.remove('show'), 5000);
+      } catch (err) {
+        setLoading(false);
+        errorEl.textContent = 'Network error: ' + (err?.message || 'Please try again.');
+        errorEl.classList.add('show');
+      }
+    });
+  </script>
+</body>
+</html>
