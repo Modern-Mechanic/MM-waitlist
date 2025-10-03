@@ -11,7 +11,9 @@
       background:#171717;color:#fff;line-height:1.6;min-height:100vh
     }
     .container{max-width:1200px;margin:0 auto;padding:40px 20px;min-height:100vh;display:flex;align-items:center}
-    .waitlist-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
+  .waitlist-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
+  .left-content{order:2;}
+  .right-content{order:1;}
 
     /* Responsive logo / hero image */
     .product-image{
@@ -119,18 +121,22 @@
     .alpha-access-btn:active{transform:translateY(0)}
 
     @media (max-width:968px){
-      .waitlist-wrapper{grid-template-columns:1fr;gap:40px}
-      /* Logo stays fluid on tablets */
-      .product-image{max-width:clamp(220px, 72vw, 200px)}
-      .left-content h1{font-size:36px}
-      .right-content{padding:35px}
-      .container{padding:30px 20px}
+  .waitlist-wrapper{grid-template-columns:1fr;gap:40px}
+  .left-content{order:2;}
+  .right-content{order:1;}
+  /* Logo stays fluid on tablets */
+  .product-image{max-width:clamp(220px, 72vw, 200px)}
+  .left-content h1{font-size:36px}
+  .right-content{padding:35px}
+  .container{padding:30px 20px}
     }
     @media (max-width:640px){
-      .product-image{max-width:40%}
-      .left-content h1{font-size:32px}
-      .right-content{padding:25px}
-      .form-header h2{font-size:24px}
+  .product-image{max-width:40%}
+  .left-content h1{font-size:32px}
+  .right-content{padding:25px}
+  .form-header h2{font-size:24px}
+  .left-content{order:2;}
+  .right-content{order:1;}
     }
 
     .success-message{
@@ -147,7 +153,6 @@
   <div class="container">
     <div class="waitlist-wrapper">
       <div class="left-content">
-        <img src="./modern-mechanic.png" alt="Modern Mechanic OBD Scanner Kit" class="product-image" id="productImage">
         <h1>Turn car problems into step-by-step solutions.</h1>
   
         <div class="features">
@@ -187,6 +192,7 @@
       </div>
 
       <div class="right-content">
+        <img src="./modern-mechanic.png" alt="Modern Mechanic OBD Scanner Kit" class="product-image" id="productImage" style="margin-bottom: 3em;">
         <span class="founding-badge">🎁 FOUNDING MEMBER KIT</span>
 
         <div class="form-header">
